@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-service-deployment
+  labels:
+    app: review-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: review-service
+        tier: backend
+    spec:
+      containers:
+        - name: review-service
+          image: shunya7/uber-review-service:v1
+          ports:
+            - containerPort: 8082
+          env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: PASSWORD
+            - name: CLOUD_SERVICE
+              value: "cloud-service-service"
+    

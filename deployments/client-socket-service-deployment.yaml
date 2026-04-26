@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-socket-service-deployment
+  labels:
+    app: client-socket-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-socket-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: client-socket-service
+        tier: backend
+    spec:
+      containers:
+        - name: client-socket-service
+          image: shunya7/uber-client-socket-service:v1
+          ports:
+            - containerPort: 8084
+          env:
+            - name: CLOUD_SERVICE
+              value: "cloud-service-service"
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: PASSWORD
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-service-deployment
+  labels:
+    app: booking-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: booking-service
+        tier: backend
+    spec:
+      containers:
+        - name: booking-service
+          image: shunya7/uber-booking-service:v1
+          ports:
+            - containerPort: 8085
+          env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: PASSWORD
+            - name: CLOUD_SERVICE
+              value: "cloud-service-service"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"

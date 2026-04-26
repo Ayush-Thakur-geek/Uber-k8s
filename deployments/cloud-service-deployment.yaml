@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-service-deployment
+  labels:
+    app: cloud-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: cloud-service
+        tier: backend
+    spec:
+      containers:
+        - name: cloud-service
+          image: shunya7/uber-cloud-service:v1
+          ports:
+            - containerPort: 8081
+    
