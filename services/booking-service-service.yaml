@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-service-service
+  labels:
+    app: booking-service
+    tier: backend
+spec:
+  selector:
+    app: booking-service
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+      nodePort: 30090
+  type: NodePort

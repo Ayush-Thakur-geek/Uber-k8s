@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-socket-service-service
+  labels:
+    app: client-socket-service
+    tier: backend
+spec:
+  selector:
+    app: client-socket-service
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+      nodePort: 30085
+  type: NodePort

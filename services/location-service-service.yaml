@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: location-service-service
+  labels:
+    app: location-service
+    tier: backend
+spec:
+  selector:
+    app: location-service
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+      nodePort: 30083
+  type: NodePort

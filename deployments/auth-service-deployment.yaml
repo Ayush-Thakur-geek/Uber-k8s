@@ -21,7 +21,7 @@ spec:
         - name: auth-service
           image: shunya7/uber-auth-service:v1
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           env:
             - name: DB_HOST
               value: "mysql-service"

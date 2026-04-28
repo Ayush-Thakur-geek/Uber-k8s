@@ -21,7 +21,7 @@ spec:
         - name: booking-service
           image: shunya7/uber-booking-service:v1
           ports:
-            - containerPort: 8085
+            - containerPort: 8090
           env:
             - name: DB_HOST
               value: "mysql-service"
@@ -38,4 +38,4 @@ spec:
                   name: jwt-secret
                   key: JWT_SECRET
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "kafka-service:9092"
+              value: "uber-kafka-kafka-bootstrap.kafka:9092"
