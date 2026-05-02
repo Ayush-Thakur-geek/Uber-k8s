@@ -1,0 +1,54 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uber-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uber.local
+      http:
+        paths:
+          - path: /auth(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: auth-service-service
+                port:
+                  number: 8081
+
+          - path: /location(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: location-service-service
+                port:
+                  number: 8083
+
+          - path: /cloud(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cloud-service-service
+                port:
+                  number: 9090
+
+          - path: /socket(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-socket-service-service
+                port:
+                  number: 8085
+
+          - path: /booking(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: booking-service-service
+                port:
+                  number: 8090
