@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: review-service
-          image: shunya7/uber-review-service:v1
+          image: shunya7/uber-reviews-service:v1
           ports:
             - containerPort: 8084
           env:
@@ -32,4 +32,10 @@ spec:
                   key: PASSWORD
             - name: CLOUD_SERVICE
               value: "cloud-service-service"
-    
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "100m"
+            limits:
+              memory: "600Mi"
+              cpu: "300m"

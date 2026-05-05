@@ -39,3 +39,10 @@ spec:
                   key: JWT_SECRET
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: "uber-kafka-kafka-bootstrap.kafka:9092"
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "100m"
+            limits:
+              memory: "600Mi"
+              cpu: "300m"
